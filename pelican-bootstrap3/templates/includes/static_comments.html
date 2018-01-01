@@ -1,0 +1,50 @@
+{% if PELICAN_COMMENT_SYSTEM %}
+
+<hr/>
+<section class="comments" id="comments">
+  <h2>Comments</h2>
+  {% if article.comments %}
+    {% for comment in article.comments recursive %}
+      {% if loop.depth0 == 0 %}
+        {% set marginLeft = 0 %}
+      {% else %}
+        {% set marginLeft = 50 %}
+      {% endif %}
+        <article id="comment-{{comment.slug}}" style="border: 1px solid #DDDDDD; padding: 5px 0px 0px 5px; margin: 0px -1px 5px {{marginLeft}}px;">
+          <a href="{{ SITEURL }}/{{ article.url }}#comment-{{comment.slug}}" rel="bookmark" title="Permalink to this comment">Permalink</a>
+          <h4>{{ comment.author }}</h4>
+          <p>Posted on <abbr class="published" title="{{ comment.date.isoformat() }}">{{ comment.locale_date }}</abbr></p>
+          {{ comment.metadata['my_custom_metadata'] }}
+          {{ comment.content }}
+          <button class="btn btn-primary btn-sm" onclick="reply('{{comment.slug | urlencode}}');">Reply</button>
+          {% if comment.replies %}
+            {{ loop(comment.replies) }}
+          {% endif %}
+        </article>
+    {% endfor %}
+  {% else %}
+    <p>There are no comments yet.<p>
+  {% endif %}
+
+  <div class="well well-lg">
+    <fieldset>
+      <legend>Add a comment</legend>
+      <form role="form" id="commentForm" action="#">
+        <div class="form-group">
+          <input class="form-control" type="text" id="commentForm_inputName" placeholder="Enter your name or synonym">
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="Text" id="commentForm_inputText" rows="10" style="resize:vertical;" placeholder="Your comment"></textarea>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-sm" type="submit" id="commentForm_button">Post (via email)</button>
+        </div>
+        <input name="replyto" type="hidden" id="commentForm_replyto">
+      </form>
+      <span class="help-block">You can use markdown in your comment. No personal information is collected or retained. Your email address will not be posted. This site uses static comments via email.  That means there is no third party tracking you.  I will get an email from you and I will see whatever email address you sent it from, which I don't care about.  The email contents will then be converted to a static comment and appear here.</span>
+    </fieldset>
+  </div>
+
+</section>
+{% endif %}
+

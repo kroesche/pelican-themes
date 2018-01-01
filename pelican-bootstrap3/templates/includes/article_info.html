@@ -37,6 +37,11 @@
         </span>
     {% endif %}
 
+    {% if PELICAN_COMMENT_SYSTEM %}
+    <span class="label label-default">{{ _('Comments') }}</span>
+            {{ article.comments_count }}
+    {% endif %}
+
     {% include 'includes/taglist.html' %}
     {% import 'includes/translations.html' as translations with context %}
     {{ translations.translations_for(article) }}

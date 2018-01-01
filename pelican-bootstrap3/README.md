@@ -284,6 +284,20 @@ If you're using reStructuredText for writing articles and pages, you can include
 * You can also enable Disqus comments for pages. This is a per-page setting you can control by adding a field `comments` to you pages' metadata. Set it to _enabled_ to enable comments for that page. Comment-threads for pages will have an id that is prefixed by 'page-'.
 * To show Disqus comment counts on the index page, set DISQUS_DISPLAY_COUNTS to _True_.
 
+### Static comments
+
+You can use static comments on your generated site with the *pelican_comment_system* plugin. Using this plugin, comments become part of the static content when the site is generated.  A comment form is added to the bottom of each post and when a reader writes a comment, they send you an email with the comment text.  This is a manual process so it is not suitable for a site with a lot of comments.  Do the following to enable static comment support:
+
+* add `pelican_comment_system` to your `PLUGINS` list
+* set `PELICAN_COMMENT_SYSTEM = True`
+* set `COMMENT_EMAIL_USER` to the email account user name (the part before the '@')
+* set `COMMENT_EMAIL_DOMAIN` to the email domain (such as gmail.com)
+* set `COMMENT_EMAIL_SUBJECT` to something descriptive so you can recognize comment email in your inbox
+
+If you already have a vanity domain, you can use an email alias user so you don't give out your real email address.  For example `comments@mysite.com`
+
+Refer to the documentation for [pelican_comment_system](https://github.com/getpelican/pelican-plugins/blob/master/pelican_comment_system/doc/installation.md) for information about how to add static comment content.  See the section on **Folder structure** and **Comment file**.  You do not need to do any of the steps related to modifying the theme.
+
 ### Content license
 
 You can optionally declare a [Creative Commons license](https://creativecommons.org) for the content of your site. It will appear in the site's footer. To enable, use one of the following two ways for configuration.
